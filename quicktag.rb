@@ -31,6 +31,8 @@ class Game
     case key
       when 48,49,50,51,52,53,54,55,56,57
         set_category(key - 48)
+      when 256,257,258,259,260,261,262,263,264,265
+        set_category(key - 256)
       when 113
         exit
       when 186
