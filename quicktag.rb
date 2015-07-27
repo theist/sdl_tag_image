@@ -33,8 +33,8 @@ class Hud
   # and blit the surface on the screen
   def draw
     ypos = 6
-    @game.categories.each do |category|
-      string = @cosmic_font.render(category ,true,[255,255,255],[0,0,0])
+    @game.categories.each_with_index do |category,index|
+      string = @cosmic_font.render("#{category} #{index}" ,true,[255,255,255],[0,0,0])
       string.blit @screen, [@screen.w-string.w-6, ypos]
       ypos = ypos + string.h + 6
     end
@@ -62,9 +62,7 @@ class Game
       puts "file categories found"
       File.new('categories.txt').readlines.each do |line|
         line.chomp!
-        puts line
         @categories.push(line)
-        puts @categories
       end
     end
   end
