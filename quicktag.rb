@@ -11,6 +11,7 @@ class Game
     @queue = Rubygame::EventQueue.new
     @clock = Rubygame::Clock.new
     @clock.target_framerate = 30
+    @lastkey = ""
   end
 
   def run
@@ -21,12 +22,28 @@ class Game
     end
   end
 
+  def sel_key(key)
+    case key
+    when 113
+      exit
+    end
+    puts "matched key #{key}"
+  end
+
   def update
     @queue.each do |ev|
       case ev
         when Rubygame::QuitEvent
           Rubygame.quit
           exit
+        when Rubygame::KeyUpEvent
+          if ev.key == @lastkey
+            sel_key(ev.key)
+          else
+            @lastkey = ""
+          end
+        when Rubygame::KeyDownEvent
+          @lastkey = ev.key
       end
     end
   end
