@@ -12,6 +12,7 @@ class Game
     @clock = Rubygame::Clock.new
     @clock.target_framerate = 30
     @lastkey = ""
+    @categories = ["Uncategorized"]
   end
 
   def run
@@ -24,10 +25,20 @@ class Game
 
   def sel_key(key)
     case key
-    when 113
-      exit
+      when 48,49,50,51,52,53,54,55,56,57
+        set_category(key - 48)
+      when 113
+        exit
     end
     puts "matched key #{key}"
+  end
+
+  def set_category(cat)
+    if cat >= @categories.count
+      puts "Theres no such cat"
+    else
+      puts "Categorized as #{@categories[cat]}"
+    end
   end
 
   def update
