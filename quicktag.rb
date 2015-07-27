@@ -58,6 +58,15 @@ class Game
     @clock.target_framerate = 30
     @lastkey = ""
     @categories = ["Uncategorized"]
+    if File.exists?('categories.txt')
+      puts "file categories found"
+      File.new('categories.txt').readlines.each do |line|
+        line.chomp!
+        puts line
+        @categories.push(line)
+        puts @categories
+      end
+    end
   end
 
   def run
