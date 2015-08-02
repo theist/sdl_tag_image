@@ -81,6 +81,7 @@ class Game
       puts "need a imagelist.txt"
       exit
     end
+    @results = File.new('clasification.txt','a')
 
     max = 5
     if @remaining.count < 5
@@ -145,6 +146,12 @@ class Game
     puts "add a category"
   end
 
+  def save_game
+    @results.close
+    Rubygame.quit
+    exit
+  end
+
   def sel_key(key)
     case key
       when 48,49,50,51,52,53,54,55,56,57
@@ -152,7 +159,7 @@ class Game
       when 256,257,258,259,260,261,262,263,264,265
         set_category(key - 256)
       when 113
-        exit
+        save_game
       when 186
         add_cat
     end
@@ -164,6 +171,8 @@ class Game
       puts "Theres no such cat"
     else
       puts "Categorized as #{@categories[cat]}"
+      @results.puts "#{@remaining[0]} = #{categories[cat]}"
+      @results.flush
       advance_image
     end
   end
@@ -172,8 +181,7 @@ class Game
     @queue.each do |ev|
       case ev
         when Rubygame::QuitEvent
-          Rubygame.quit
-          exit
+          save_game
         when Rubygame::KeyUpEvent
           if ev.key == @lastkey
             sel_key(ev.key)
@@ -192,6 +200,7 @@ class Game
     @hud.draw
     @screen.update
     if @game_over
+      @results.close
       Rubygame.quit
       exit
     end
