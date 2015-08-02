@@ -58,11 +58,20 @@ class Game
     @clock.target_framerate = 30
     @lastkey = ""
     @categories = ["Uncategorized"]
+    @remaining = []
     if File.exists?('categories.txt')
       puts "file categories found"
       File.new('categories.txt').readlines.each do |line|
         line.chomp!
         @categories.push(line)
+      end
+    end
+
+    if File.exists?('imagelist.txt')
+      puts "imagelist found"
+      File.new('imagelist.txt').readlines.each do |line|
+        line.chomp!
+        @remaining.push(line)
       end
     end
   end
