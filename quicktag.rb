@@ -49,7 +49,7 @@ class Game
   attr_accessor :categories
 
   def initialize
-    @screen = Rubygame::Screen.new [640,480], 0, [Rubygame::HWSURFACE, Rubygame::DOUBLEBUF]
+    @screen = Rubygame::Screen.new [800,600], 0, [Rubygame::HWSURFACE, Rubygame::DOUBLEBUF]
     @screen.title = "Generic Game!"
     @hud = Hud.new :screen => @screen, :game => self
 
