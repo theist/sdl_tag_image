@@ -37,6 +37,8 @@ class Hud
       string.blit @screen, [@screen.w-string.w-6, ypos]
       ypos = ypos + string.h + 6
     end
+    st = @cosmic_font.render("#{@game.remaining.count} #{@game.remaining[0]}",true,[255,255,255])
+    st.blit @screen, [6,600 - 6 - st.h]
   end
 
 end
@@ -46,6 +48,7 @@ end
 class Game
 
   attr_accessor :categories
+  attr_accessor :remaining
 
   def initialize
     @screen = Rubygame::Screen.new [800,600], 0, [Rubygame::HWSURFACE, Rubygame::DOUBLEBUF]
