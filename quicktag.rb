@@ -84,6 +84,16 @@ class Game
     end
   end
 
+  def advance_image
+    @surfaces.shift
+    @remaining.shift
+    if @remaining[4]
+      @surfaces[4] = Rubygame::Surface.load(@remaining[4])
+    else
+      @surfaces[4] = nil
+    end
+  end
+
   def draw_tiles
     if @surfaces[0]
       @surfaces[0].zoom_to(560,480,true).blit(@screen,[0,0])
@@ -143,6 +153,7 @@ class Game
       puts "Theres no such cat"
     else
       puts "Categorized as #{@categories[cat]}"
+      advance_image
     end
   end
 
