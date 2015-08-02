@@ -148,6 +148,11 @@ class Game
 
   def save_game
     @results.close
+    remains = File.open("imagelist.txt","w")
+    @remaining.each do |file|
+      remains.puts file
+    end
+    remains.close
     Rubygame.quit
     exit
   end
@@ -201,6 +206,9 @@ class Game
     @screen.update
     if @game_over
       @results.close
+      remains = File.open("imagelist.txt","w")
+      remains.puts("")
+      remains.close
       Rubygame.quit
       exit
     end
