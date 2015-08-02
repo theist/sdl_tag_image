@@ -74,6 +74,9 @@ class Game
         line.chomp!
         @remaining.push(line)
       end
+    else
+      puts "need a imagelist.txt"
+      exit
     end
 
     max = 5
