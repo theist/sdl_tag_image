@@ -59,6 +59,7 @@ class Game
     @categories = ["Uncategorized"]
     @remaining = []
     @surfaces = []
+    @game_over = false
     if File.exists?('categories.txt')
       puts "file categories found"
       File.new('categories.txt').readlines.each do |line|
@@ -87,6 +88,10 @@ class Game
   def advance_image
     @surfaces.shift
     @remaining.shift
+    if @remaining.count == 0
+      puts "Game over"
+      @game_over = true
+    end
     if @remaining[4]
       @surfaces[4] = Rubygame::Surface.load(@remaining[4])
     else
@@ -180,6 +185,10 @@ class Game
     draw_tiles
     @hud.draw
     @screen.update
+    if @game_over
+      Rubygame.quit
+      exit
+    end
   end
 end
 
