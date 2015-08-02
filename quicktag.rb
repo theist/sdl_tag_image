@@ -1,6 +1,5 @@
 #!/bin/env ruby
 
-require 'rubygems'
 require 'rubygame'
 
 class Hud
@@ -59,6 +58,7 @@ class Game
     @lastkey = ""
     @categories = ["Uncategorized"]
     @remaining = []
+    @surfaces = []
     if File.exists?('categories.txt')
       puts "file categories found"
       File.new('categories.txt').readlines.each do |line|
@@ -73,6 +73,42 @@ class Game
         line.chomp!
         @remaining.push(line)
       end
+    end
+
+    max = 5
+    if @remaining.count < 5
+      max = @remaining.count
+    end
+    for index in 0..(max -1)
+      @surfaces[index] = Rubygame::Surface.load(@remaining[index])
+    end
+  end
+
+  def draw_tiles
+    if @surfaces[0]
+      @surfaces[0].zoom_to(560,480,true).blit(@screen,[0,0])
+    else
+      Rubygame::Surface.new([560,480]).blit(@screen, [0,0])
+    end
+    if @surfaces[1]
+      @surfaces[1].zoom_to(240,150,true).blit(@screen,[560,0])
+    else
+      Rubygame::Surface.new([240,150]).blit(@screen, [560,0])
+    end
+    if @surfaces[2]
+      @surfaces[2].zoom_to(240,150,true).blit(@screen,[560,150])
+    else
+      Rubygame::Surface.new([560,480]).blit(@screen, [560,150])
+    end
+    if @surfaces[3]
+      @surfaces[3].zoom_to(240,150,true).blit(@screen,[560,300])
+    else
+      Rubygame::Surface.new([240,150]).blit(@screen, [560,300])
+    end
+    if @surfaces[4]
+      @surfaces[4].zoom_to(240,150,true).blit(@screen,[560,450])
+    else
+      Rubygame::Surface.new([240,150]).blit(@screen, [560,450])
     end
   end
 
@@ -130,6 +166,7 @@ class Game
 
   def draw
     @screen.fill :black
+    draw_tiles
     @hud.draw
     @screen.update
   end
